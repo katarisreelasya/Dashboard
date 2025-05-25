@@ -1,13 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import '../src/styles/App.css'; // Import your Tailwind CSS file
+import ReactDOM from 'react-dom/client';
+import App from './app';
+import '../src/index.css'; 
 
-const App = () => (
-  <div>
-    <h1 className="text-3xl font-bold text-right text-red-700 underline">
-      Hello world!
-    </h1>
-  </div>
+
+const rootElement = document.getElementById('app'); // match your HTML div id
+
+if (!rootElement) {
+  throw new Error("Root element not found");
+}
+
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
-
-ReactDOM.render(<App />, document.getElementById('app'));
