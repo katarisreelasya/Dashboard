@@ -17,9 +17,9 @@ import ActivityFeed from "./ActivityFeed";
 const DashboardMainContent = () => {
   return (
     <div className="flex flex-col lg:flex-row w-full bg-gray-50 min-h-screen overflow-hidden p-4 pt-20 lg:pt-24">
-      {/* Left/Main Section */}
+      
       <div className="flex-1 w-full lg:w-2/3 flex flex-col gap-6">
-        {/* Key Metrics Summary */}
+        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-white p-4 rounded-lg shadow flex items-center justify-between">
             <div>
@@ -53,10 +53,8 @@ const DashboardMainContent = () => {
           </div>
         </div>
 
-        {/* Anatomy Section */}
         <AnatomySection />
 
-        {/* Quick Actions */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <button className="flex items-center justify-center p-4 bg-white rounded-lg shadow hover:bg-blue-50 text-sm font-medium transition">
             <FaFileExport className="mr-2 text-gray-500" /> Generate Report
@@ -73,7 +71,6 @@ const DashboardMainContent = () => {
         </div>
       </div>
 
-      {/* Right Sidebar */}
       <div className="w-full lg:w-1/3 flex flex-col gap-6 mt-6 lg:mt-0 lg:pl-6">
         <CalendarView />
         <UpcomingSchedule />
