@@ -1,4 +1,3 @@
-// src/data/calendar.js
 
 export const calendarEvents = [
   {
@@ -30,3 +29,4 @@ export const calendarEvents = [
     status: 'confirmed',
   },
 ];
+export default calendarEvents;

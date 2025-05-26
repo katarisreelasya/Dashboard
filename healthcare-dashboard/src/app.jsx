@@ -14,6 +14,8 @@ import CalendarView from './components/CalendarView';
 import UpcomingSchedule from './components/UpcomingSchedule';
 import ActivityFeed from './components/ActivityFeed';
 import SimpleAppointmentCard from './components/SimpleAppointmentCard';
+import Settings from './components/Settings';
+import Analytics from './components/Analytics';
 
 const App = () => {
   return (
@@ -36,6 +38,8 @@ const App = () => {
               <Route path="/calendar" element={<CalendarView />} />
               <Route path="/schedule" element={<UpcomingSchedule />} />
               <Route path="/activity" element={<ActivityFeed />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/analytics" element={<Analytics />} />
 
              
               <Route path="/status-cards" element={<HealthStatusCards />} />
