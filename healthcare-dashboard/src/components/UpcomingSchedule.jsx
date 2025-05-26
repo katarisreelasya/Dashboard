@@ -24,11 +24,11 @@ const UpcomingSchedule = () => {
     <section className="bg-white shadow rounded-2xl p-4 h-full">
       <h2 className="text-lg font-semibold text-gray-800 mb-4">The Upcoming Schedule</h2>
       {Object.entries(groupedSchedule).map(([day, appointments]) => (
-        <div key={day} className="mb-4">
+        <div key={day} className="mb-6">
           <h3 className="text-sm font-semibold text-gray-600 mb-2">On {day}</h3>
           <div className="space-y-2">
-            {appointments.map((item, index) => (
-              <SimpleAppointmentCard key={index} task={item.task} time={item.time} />
+            {appointments.map(({ task, time }, index) => (
+              <SimpleAppointmentCard key={index} task={task} time={time} />
             ))}
           </div>
         </div>

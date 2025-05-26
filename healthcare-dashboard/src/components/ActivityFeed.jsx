@@ -21,6 +21,7 @@ const ActivityFeed = () => {
 
   return (
     <section className="bg-white shadow-md rounded-2xl p-6 h-full flex flex-col justify-between">
+      {/* Header */}
       <div>
         <div className="flex items-center mb-4 space-x-2">
           <ActivitySquare className="text-blue-500 w-5 h-5" />
@@ -28,7 +29,7 @@ const ActivityFeed = () => {
         </div>
         <p className="text-sm text-gray-500 mb-6">3 appointments this week</p>
 
-        {/* Static bar chart */}
+        {/* Bar Chart */}
         <div className="flex items-end justify-between h-32 mb-8 px-2">
           {days.map((day, index) => (
             <div key={index} className="flex flex-col items-center space-y-1">
@@ -42,14 +43,16 @@ const ActivityFeed = () => {
         </div>
       </div>
 
-      {/* Activity Feed List */}
-      <ul className="space-y-5">
+      {/* Activity Feed */}
+      <ul className="space-y-4">
         {activities.map((item, index) => (
           <li
             key={index}
-            className="flex items-start space-x-3 bg-gray-50 rounded-lg p-3 shadow-sm"
+            className="flex items-start space-x-3 bg-gray-50 hover:bg-gray-100 rounded-lg p-3 transition-shadow shadow-sm hover:shadow-md"
           >
-            <span className="text-xs font-medium text-gray-500 min-w-[60px]">{item.time}</span>
+            <span className="text-xs font-medium text-gray-500 min-w-[60px]">
+              {item.time}
+            </span>
             <p className="text-sm text-gray-700">{item.description}</p>
           </li>
         ))}

@@ -8,13 +8,16 @@ import boneIcon from '../assets/icons/bones.png';
 
 const CalendarView = () => {
   const [currentDate, setCurrentDate] = useState(dayjs());
-  const [startDay, setStartDay] = useState(0); // Start with day 0 (today)
-  
+  const [startDay, setStartDay] = useState(0);
+
+  // 🛠 Fixed: Multiple appointments per day
   const appointments = {
-    0: { time: "09:00", type: "dentist", doctor: "Dr. Smith" },
-    0: { time: "11:00", type: "cardio", doctor: "Dr. Johnson" },
-    2: { time: "13:00", type: "pulmonology", doctor: "Dr. Lee" },
-    5: { time: "15:00", type: "ortho", doctor: "Dr. Brown" }
+    0: [
+      { time: "09:00", type: "dentist", doctor: "Dr. Smith" },
+      { time: "11:00", type: "cardio", doctor: "Dr. Johnson" }
+    ],
+    2: [{ time: "13:00", type: "pulmonology", doctor: "Dr. Lee" }],
+    5: [{ time: "15:00", type: "ortho", doctor: "Dr. Brown" }]
   };
 
   const appointmentTypes = {
@@ -24,9 +27,7 @@ const CalendarView = () => {
     ortho: { icon: boneIcon, color: "bg-purple-100", text: "text-purple-800" }
   };
 
-  const visibleDays = Array.from({ length: 3 }, (_, i) => 
-    currentDate.add(startDay + i, 'day')
-  );
+  const visibleDays = Array.from({ length: 3 }, (_, i) => currentDate.add(startDay + i, 'day'));
 
   const handlePrev = () => {
     if (startDay > 0) setStartDay(startDay - 1);
@@ -45,37 +46,41 @@ const CalendarView = () => {
         {currentDate.format('DD-MMMM-YYYY')}
       </div>
 
-      {/* Day Navigation */}
+      {/* Navigation */}
       <div className="flex items-center justify-between mb-4">
-        <button 
+        <button
           onClick={handlePrev}
           className="p-2 rounded-full hover:bg-gray-100 disabled:opacity-50"
           disabled={startDay === 0}
         >
           <HiChevronLeft className="text-gray-600 text-xl" />
         </button>
-        
+
         <div className="grid grid-cols-3 gap-2 flex-1 mx-2">
           {visibleDays.map((day, idx) => {
-            const dayIndex = (startDay + idx) % 7;
-            const dayAppointments = appointments[dayIndex] ? [appointments[dayIndex]] : [];
-            
+            const dayIndex = startDay + idx;
+            const dayAppointments = appointments[dayIndex] || [];
+
             return (
               <div
                 key={idx}
-                className={`bg-gray-50 p-2 rounded-lg flex flex-col items-center justify-start min-h-[100px] border ${
+                className={`bg-gray-50 p-2 rounded-lg flex flex-col items-center min-h-[100px] border ${
                   day.isSame(currentDate, 'day') ? 'border-blue-300 bg-blue-50' : 'border-gray-200'
                 }`}
               >
                 <span className="font-semibold text-sm">{day.format('ddd')}</span>
                 <span className="text-xs text-gray-500">{day.format('DD')}</span>
-                
+
+                {day.isSame(dayjs(), 'day') && (
+                  <span className="text-[10px] text-blue-600 font-medium mt-1">Today</span>
+                )}
+
                 {dayAppointments.map((appt, tIdx) => {
                   const type = appointmentTypes[appt.type];
                   return (
                     <div
                       key={tIdx}
-                      className={`mt-2 text-xs rounded-full p-1 flex items-center ${type.color} ${type.text}`}
+                      className={`mt-2 text-xs rounded-full px-2 py-1 flex items-center ${type.color} ${type.text}`}
                     >
                       <img src={type.icon} alt={appt.type} className="w-4 h-4 mr-1" />
                       <span>{appt.time}</span>
@@ -86,8 +91,8 @@ const CalendarView = () => {
             );
           })}
         </div>
-        
-        <button 
+
+        <button
           onClick={handleNext}
           className="p-2 rounded-full hover:bg-gray-100"
         >
@@ -99,29 +104,31 @@ const CalendarView = () => {
       <div className="mt-6">
         <h3 className="text-sm font-semibold text-gray-700 mb-2">Upcoming Appointments</h3>
         <div className="space-y-2">
-          {Object.entries(appointments).map(([dayOffset, appt]) => {
-            const apptDate = currentDate.add(dayOffset, 'day');
-            const type = appointmentTypes[appt.type];
-            
-            return (
-              <div 
-                key={`${dayOffset}-${appt.time}`} 
-                className={`${type.color} border ${type.color.replace('100', '200')} rounded-lg p-3`}
-              >
-                <div className="flex items-center">
-                  <img src={type.icon} alt={appt.type} className="w-5 h-5 mr-2" />
-                  <div>
-                    <p className={`text-sm font-medium ${type.text}`}>
-                      {appt.type.charAt(0).toUpperCase() + appt.type.slice(1)} Appointment
-                    </p>
-                    <p className={`text-xs ${type.text.replace('800', '700')}`}>
-                      {appt.time} - {appt.doctor} • {apptDate.format('ddd, MMM D')}
-                    </p>
+          {Object.entries(appointments).map(([dayOffset, appts]) =>
+            appts.map((appt, idx) => {
+              const apptDate = currentDate.add(Number(dayOffset), 'day');
+              const type = appointmentTypes[appt.type];
+
+              return (
+                <div
+                  key={`${dayOffset}-${appt.time}-${idx}`}
+                  className={`${type.color} border ${type.color.replace('100', '200')} rounded-lg p-3`}
+                >
+                  <div className="flex items-center">
+                    <img src={type.icon} alt={appt.type} className="w-5 h-5 mr-2" />
+                    <div>
+                      <p className={`text-sm font-medium ${type.text}`}>
+                        {appt.type.charAt(0).toUpperCase() + appt.type.slice(1)} Appointment
+                      </p>
+                      <p className={`text-xs ${type.text.replace('800', '700')}`}>
+                        {appt.time} - {appt.doctor} • {apptDate.format('ddd, MMM D')}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </div>
     </section>

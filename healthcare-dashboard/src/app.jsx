@@ -13,7 +13,7 @@ import HealthStatusCards from './components/HealthStatusCards';
 import CalendarView from './components/CalendarView';
 import UpcomingSchedule from './components/UpcomingSchedule';
 import ActivityFeed from './components/ActivityFeed';
-import SimpleAppointmentCard from './components/SimpleAppointmentCard';
+
 import Settings from './components/Settings';
 
 
@@ -43,13 +43,7 @@ const App = () => {
 
              
               <Route path="/status-cards" element={<HealthStatusCards />} />
-              <Route path="/appointments" element={
-                <SimpleAppointmentCard
-                  name="Dr. Jane Doe"
-                  date="June 1, 2025 at 10:00 AM"
-                  status="upcoming"
-                />
-              } />
+              
             </Routes>
           </main>
         </div>

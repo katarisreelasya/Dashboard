@@ -1,3 +1,4 @@
+// src/components/DashboardOverview.jsx
 import React from 'react';
 import { FaCalendarAlt, FaClipboardCheck, FaClock } from 'react-icons/fa';
 
@@ -25,15 +26,15 @@ const overviewStats = [
 const DashboardOverview = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {overviewStats.map((stat, index) => (
+      {overviewStats.map(({ title, value, icon, bg }, index) => (
         <div
           key={index}
-          className={`flex items-center p-5 rounded-2xl shadow-md ${stat.bg}`}
+          className={`flex items-center p-5 rounded-2xl shadow-md ${bg}`}
         >
-          <div className="mr-4">{stat.icon}</div>
+          <div className="mr-4">{icon}</div>
           <div>
-            <p className="text-gray-500 text-sm">{stat.title}</p>
-            <p className="text-xl font-semibold text-gray-800">{stat.value}</p>
+            <p className="text-gray-500 text-sm">{title}</p>
+            <p className="text-xl font-semibold text-gray-800">{value}</p>
           </div>
         </div>
       ))}

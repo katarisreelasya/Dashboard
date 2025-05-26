@@ -8,22 +8,27 @@ const statusCards = [
 
 const HealthStatusCards = ({ selectedOrgan }) => {
   return (
-    <div className="grid grid-cols-1 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {statusCards.map((card, index) => {
         const isSelected = selectedOrgan === card.label;
+        const borderColor = card.color === 'green' ? 'border-green-400' : 'border-red-400';
+        const ringColor = card.color === 'green' ? 'ring-green-300' : 'ring-red-300';
+        const statusIcon = card.color === 'green' ? '✅' : '⚠️';
+
         return (
           <div
             key={index}
-            className={`rounded-xl p-4 shadow border transition-all duration-300 ${
-              isSelected
-                ? 'bg-white border-blue-500 ring-2 ring-blue-300'
-                : 'bg-blue-50 border-blue-200'
-            }`}
+            className={`rounded-xl p-4 shadow-md border transition-all duration-300 
+              ${isSelected ? `bg-white border-blue-500 ring-2 ring-offset-1 ${ringColor}` : `bg-gray-50 ${borderColor}`}
+              hover:shadow-lg hover:bg-white`}
           >
-            <h3 className="text-sm font-medium text-gray-600">{card.label}</h3>
-            <p className="text-xs text-gray-500">Last Checked: {card.date}</p>
+            <div className="flex items-center justify-between">
+              <h3 className="text-base font-semibold text-gray-800">{card.label}</h3>
+              <span className="text-xl">{statusIcon}</span>
+            </div>
+            <p className="text-sm text-gray-500 mt-1">Last Checked: {card.date}</p>
             <span
-              className={`text-sm font-semibold mt-2 inline-block ${
+              className={`text-sm font-medium mt-2 inline-block ${
                 card.color === 'green' ? 'text-green-600' : 'text-red-600'
               }`}
             >
