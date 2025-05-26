@@ -7,10 +7,10 @@ const Header = () => {
   return (
     <header className="bg-white shadow px-4 sm:px-6 py-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50 h-16">
       
-      {/* Logo */}
+      
       <img src={logo} alt="Healthcare Logo" className="h-40 sm:h-42 w-auto" />
 
-      {/* Search Input with Icon */}
+   
       <div className="relative w-40 sm:w-64">
         <span className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-gray-400">
           <FaSearch size={14} />
@@ -23,10 +23,10 @@ const Header = () => {
         />
       </div>
 
-      {/* Right Side: Notification, Profile, Add */}
+     
       <div className="flex items-center space-x-4">
         
-        {/* Notification Icon */}
+        
         <button
           aria-label="Notifications"
           className="relative text-gray-600 hover:text-blue-600"
@@ -35,12 +35,12 @@ const Header = () => {
           <span className="absolute top-0 right-0 inline-block w-2 h-2 bg-red-600 rounded-full"></span>
         </button>
 
-        {/* User Profile Circle */}
+      
         <div className="w-9 h-9 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-semibold select-none">
           U
         </div>
 
-        {/* Add Button */}
+        
         <button
           aria-label="Add"
           className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full"
